@@ -25,9 +25,9 @@ namespace TVShows
         {
             InitializeComponent();
 
-            //PersonalArea personalArea = new PersonalArea();
-            //var s = PersonalArea.GetTVShow("girls");
-            //var ss = PersonalArea.GetTVShows("game of thrones");
+            PersonalArea personalArea = new PersonalArea();
+            var s = PersonalArea.GetTVShow("girls");
+            var ss = PersonalArea.GetTVShows("game of thrones");
         }
     }
 }
