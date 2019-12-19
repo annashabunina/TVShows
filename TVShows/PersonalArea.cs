@@ -16,8 +16,29 @@ namespace TVShows
 
         List<Show> Shows { get; set; }
         List<int> ShowsId { get; set; }
-        List<int> SeenEpisodesId { get; set; }
+        List<int> WhatchedEpisodesId { get; set; }
 
+        public Action ChangedEpisodeState;
+        public Action ChangedShow;
+
+
+        public List<Episode> GetEpisodes(bool watched)
+        {
+            List<Episode> episodes = new List<Episode>();
+            foreach (Show show in Shows)
+                episodes.AddRange(show.Episodes.FindAll(e => e.Watched == watched));
+            return episodes;
+        }
+
+        public void ChangeEpisodeState(int id, bool watched)
+        {
+            Episode episode=null;
+            foreach (Show show in Shows)
+                episode = show.Episodes.FirstOrDefault(e => e.Id == id);
+            episode.Watched = watched;
+            ChangedEpisodeState?.Invoke();
+        }
+        //public List<Episode> MyProperty { get; set; }
 
 
         //public Show GetTVShow(string name)
@@ -28,7 +49,7 @@ namespace TVShows
         //    return s;
         //}
 
-        private  T GetQueryResult<T>(string query)
+        private T GetQueryResult<T>(string query)
         {
             using (var client = new HttpClient())
             {
@@ -41,15 +62,16 @@ namespace TVShows
         {
                 return GetQueryResult<List<SearchRating>>($"http://api.tvmaze.com/search/shows?q={name}");
         }
-       
+
         public bool AddShow(int id)
         {
             if (ShowsId.Any(s => s == id)) return false;
             ShowsId.Add(id);
-            var show=GetQueryResult<Show>($"http://api.tvmaze.com/shows/{id}"));
+            var show=GetQueryResult<Show>($"http://api.tvmaze.com/shows/{id}");
             show.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{id}/episodes");
             Shows.Add(show);
             SaveData();
+            ChangedShow?.Invoke();
             return true;
         }
 
@@ -60,6 +82,7 @@ namespace TVShows
             ShowsId.Remove(id);
             Shows.Remove(show);
             SaveData();
+            ChangedShow?.Invoke();
             return true;
         }
 
@@ -85,7 +108,7 @@ namespace TVShows
         private void SaveData()
         {
             SaveList(ShowsId, ShowsFileName);
-            SaveList(SeenEpisodesId, EpisodesFileName);
+            SaveList(WhatchedEpisodesId, EpisodesFileName);
         }
 
         private List<T> LoadList<T>(string fileName)//Code source: lecture/seminar samples
@@ -103,7 +126,7 @@ namespace TVShows
         private void LoadData()
         {
             ShowsId = LoadList<int>(ShowsFileName);
-            SeenEpisodesId = LoadList<int>(EpisodesFileName);
+            WhatchedEpisodesId = LoadList<int>(EpisodesFileName);
 
             Shows = new List<Show>();
             foreach (var id in ShowsId)
@@ -113,7 +136,7 @@ namespace TVShows
             {
                 show.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{show.Id}/episodes");
                 foreach (var episode in show.Episodes)
-                    if (SeenEpisodesId.Any(e => e == episode.Id)) episode.Seen = true;
+                    if (WhatchedEpisodesId.Any(e => e == episode.Id)) episode.Watched = true;
             }
         }
         #endregion save&load
