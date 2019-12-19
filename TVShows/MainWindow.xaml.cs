@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TVShows.Models;
 
 namespace TVShows
 {
@@ -23,6 +24,10 @@ namespace TVShows
         public MainWindow()
         {
             InitializeComponent();
+
+            //PersonalArea personalArea = new PersonalArea();
+            //var s = PersonalArea.GetTVShow("girls");
+            //var ss = PersonalArea.GetTVShows("game of thrones");
         }
     }
 }
