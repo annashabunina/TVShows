@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TVShows.Models
 {
-    class TVShow
+    class Show
     {
         [JsonProperty("id")]
         public int Id { get; set; }
