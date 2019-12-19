@@ -10,68 +10,36 @@ namespace TVShows
 {
     class PersonalArea
     {
-        // INSERT YOUR OPENWEATHERMAP KEY BEFORE RUNNING THE PROGRAM
-        const string AppId = "";
 
-        static string BuildUrl(string baseUrl, IDictionary<string, string> parameters)
-        {
-            var sb = new StringBuilder(baseUrl);
-            if (parameters?.Count > 0)
-            {
-                sb.Append('?');
-                foreach (var p in parameters)
-                {
-                    sb.Append(p.Key);
-                    sb.Append("=");
-                    sb.Append(WebUtility.UrlEncode(p.Value));  // This is the important part - percent-encoding
-                    sb.Append('&');
-                }
-                sb.Remove(sb.Length - 1, 1);    // Remove the last '&'
-            }
-            return sb.ToString();
-        }
 
-        public static string MakeQuery(string name)
-        {
-            // Simple option
-            //return $"http://api.tvmaze.com/singlesearch/shows?q=girls";
-            return $"http://api.tvmaze.com/singlesearch/shows?q={name}";
+        List<TVShow> Shows { get; set; }
 
-            // A better option:
-            //return BuildUrl("http://api.tvmaze.com/singlesearch/shows?q={name}", new Dictionary<string, string>
-            //{
-            //    {"name", "girls" },
-            //    //{"id", "metric" },
-            //    //{"appid", AppId }
-            //});
-        }
+        List<int> ShowsId { get; set; }
 
-        public static string MakeQuery(int id)
+        List<int> SeenEpisodesId { get; set; }
+
+
+        public static TVShow GetTVShow(string name)
         {
 
-            return $"http://api.tvmaze.com/singlesearch/shows?q={id}";
+            return GetQueryResult<TVShow>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
+            
         }
 
-        public static TVShow GetTVShow(string city)
+        private static T GetQueryResult<T>(string query)
         {
             using (var client = new HttpClient())
             {
-                string result = client.GetStringAsync(MakeQuery(city)).Result;  // Blocking call!
-                TVShow s= JsonConvert.DeserializeObject<TVShow>(result);
-                string r = client.GetStringAsync($"http://api.tvmaze.com/shows/{s.Id}/episodes").Result;
-                s.Episodes= JsonConvert.DeserializeObject<List<Episode>>(r);
-                return s;
+                string result = client.GetStringAsync(query).Result;  // Blocking call!
+                return JsonConvert.DeserializeObject<T>(result);
             }
         }
 
         public static List<SearchRating> GetTVShows(string name)
         {
-            using (var client = new HttpClient())
-            {
-                string result = client.GetStringAsync($"http://api.tvmaze.com/search/shows?q={name}").Result;
-                return JsonConvert.DeserializeObject<List<SearchRating>>(result);
-            }
+                return GetQueryResult<List<SearchRating>>($"http://api.tvmaze.com/search/shows?q={name}");
         }
+       
 
         public class SearchRating
         {
