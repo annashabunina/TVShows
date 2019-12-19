@@ -28,5 +28,16 @@ namespace TVShows.Models
 
         [JsonProperty("summary")]
         public string Summary { get; set; }
+
+        [JsonProperty("image")]
+        public Image Image { get; set; }
+    }
+
+    class Image
+    {
+        [JsonProperty("medium")]
+        public string Medium { get; set; }
+        [JsonProperty("original")]
+        public string Original { get; set; }
     }
 }

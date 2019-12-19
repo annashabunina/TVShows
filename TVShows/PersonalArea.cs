@@ -14,23 +14,21 @@ namespace TVShows
     {
 
 
-   public     List<Show> Shows { get; set; }
-
-      public  List<int> ShowsId { get; set; }
-
-     public   List<int> SeenEpisodesId { get; set; }
+        List<Show> Shows { get; set; }
+        List<int> ShowsId { get; set; }
+        List<int> SeenEpisodesId { get; set; }
 
 
-        public static Show GetTVShow(string name)
-        {
 
-            //return GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
-            Show s= GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
-            s.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{s.Id}/episodes");
-            return s;
-        }
+        //public Show GetTVShow(string name)
+        //{
+        //    //return GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
+        //    Show s= GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
+        //    s.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{s.Id}/episodes");
+        //    return s;
+        //}
 
-        private static T GetQueryResult<T>(string query)
+        private  T GetQueryResult<T>(string query)
         {
             using (var client = new HttpClient())
             {
@@ -39,24 +37,38 @@ namespace TVShows
             }
         }
 
-        public static List<SearchRating> GetTVShows(string name)
+        public  List<SearchRating> SearchTVShows(string name)
         {
                 return GetQueryResult<List<SearchRating>>($"http://api.tvmaze.com/search/shows?q={name}");
         }
        
-
-        public class SearchRating
+        public bool AddShow(int id)
         {
-            [JsonProperty("score")]
-            public double Score { get; set; }
-            [JsonProperty("show")]
-            public Show Show { get; set; }
+            if (ShowsId.Any(s => s == id)) return false;
+            ShowsId.Add(id);
+            var show=GetQueryResult<Show>($"http://api.tvmaze.com/shows/{id}"));
+            show.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{id}/episodes");
+            Shows.Add(show);
+            SaveData();
+            return true;
         }
+
+        public bool DeleteShow(int id)
+        {
+            if (!ShowsId.Any(s => s == id)) return false;
+            Show show = Shows.First(s => s.Id == id);
+            ShowsId.Remove(id);
+            Shows.Remove(show);
+            SaveData();
+            return true;
+        }
+
+        #region save&load
 
         private const string ShowsFileName = "shows.json",
            EpisodesFileName = "episodes.json";
 
-        private void SaveList<T>(List<T> data, string fileName)//Code sourse: lecture/seminar samples
+        private void SaveList<T>(List<T> data, string fileName)//Code source: lecture/seminar samples
         {
             using (var sw = new StreamWriter(fileName))
             {
@@ -70,14 +82,13 @@ namespace TVShows
                 }
             }
         }
-
-        public void SaveData()
+        private void SaveData()
         {
             SaveList(ShowsId, ShowsFileName);
             SaveList(SeenEpisodesId, EpisodesFileName);
         }
 
-        private List<T> LoadList<T>(string fileName)//Code sourse: lecture/seminar samples
+        private List<T> LoadList<T>(string fileName)//Code source: lecture/seminar samples
         {
             using (var sr = new StreamReader(fileName))
             {
@@ -89,7 +100,7 @@ namespace TVShows
             }
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             ShowsId = LoadList<int>(ShowsFileName);
             SeenEpisodesId = LoadList<int>(EpisodesFileName);
@@ -105,5 +116,15 @@ namespace TVShows
                     if (SeenEpisodesId.Any(e => e == episode.Id)) episode.Seen = true;
             }
         }
+        #endregion save&load
+
+        public class SearchRating
+        {
+            [JsonProperty("score")]
+            public double Score { get; set; }
+            [JsonProperty("show")]
+            public Show Show { get; set; }
+        }
     }
+
 }
