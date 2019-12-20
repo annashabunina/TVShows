@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 namespace TVShows
 {
     /// <summary>
-    /// Логика взаимодействия для Show.xaml
+    /// Логика взаимодействия для ShowWindow.xaml
     /// </summary>
-    public partial class Show : Window
+    public partial class ShowWindow : Window
     {
-        public Show()
+        public ShowWindow()
         {
             InitializeComponent();
         }
