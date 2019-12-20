@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TVShows.Models
 {
-    class Episode
+   public class Episode
     {
         public bool Watched { get; set; }
 
@@ -33,7 +33,7 @@ namespace TVShows.Models
         public Image Image { get; set; }
     }
 
-    class Image
+  public  class Image
     {
         [JsonProperty("medium")]
         public string Medium { get; set; }

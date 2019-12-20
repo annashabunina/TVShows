@@ -9,6 +9,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TVShows.Models;
+using static TVShows.PersonalArea;
 
 namespace TVShows
 {
@@ -17,9 +19,40 @@ namespace TVShows
     /// </summary>
     public partial class Search : Window
     {
-        public Search()
+        PersonalArea personalArea;
+
+        public Search(PersonalArea personalArea)
         {
             InitializeComponent();
+            this.personalArea = personalArea;
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxResult.Items.Clear();
+            string query = SearchBox.Text;
+
+            List<SearchRating> result=personalArea.SearchTVShows(query);
+            foreach (var t in result)
+                ListBoxResult.Items.Add(t.Show);
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Show show=(Show)ListBoxResult.SelectedItem;
+                personalArea.AddShow(show.Id);
+            }
+            catch
+            {
+                MessageBox.Show("Choose");
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

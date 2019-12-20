@@ -10,9 +10,21 @@ using TVShows.Models;
 
 namespace TVShows
 {
-    class PersonalArea
+    public class PersonalArea
     {
-
+      public  PersonalArea()
+        {
+            try
+            {
+                LoadData();
+            }
+            catch
+            {
+                Shows = new List<Show>();
+                ShowsId = new List<int>();
+                WhatchedEpisodesId = new List<int>();
+            }
+        }
 
         List<Show> Shows { get; set; }
         List<int> ShowsId { get; set; }

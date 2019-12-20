@@ -21,11 +21,11 @@ namespace TVShows
     /// </summary>
     public partial class MainWindow : Window
     {
+        PersonalArea personalArea;
         public MainWindow()
         {
             InitializeComponent();
-
-            PersonalArea personalArea = new PersonalArea();
+            personalArea = new PersonalArea();
             //var s = PersonalArea.GetTVShow("girls");
             ////var ss = PersonalArea.GetTVShows("game of thrones");
             //PersonalArea p = new PersonalArea();
@@ -38,6 +38,12 @@ namespace TVShows
             ////p.SaveData();
             //p.LoadData();
             //var s=p.Shows;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Search searchWindow = new Search(personalArea);
+            searchWindow.ShowDialog();
         }
     }
 }

@@ -57,7 +57,7 @@ Title="Menu" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocatio
       <TabItem Header="My Shows" FontSize="14">
         <StackPanel>
           <StackPanel Orientation="Horizontal">
-            <Button FontSize="14" Margin="5">Add</Button>
+            <Button FontSize="14" Margin="5" Click="Button_Click">Add</Button>
             <Button FontSize="14" Margin="5">Delete</Button>
           </StackPanel>
           <ScrollViewer VerticalScrollBarVisibility="Visible">
