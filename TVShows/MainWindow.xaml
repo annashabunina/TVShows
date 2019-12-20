@@ -5,8 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TVShows"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+Title="Menu" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+  <Grid Margin="10">
+    <TabControl TabStripPlacement="Left">
+      <TabItem Header="To Watch" FontSize="14">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+          <ListBox>
+            <ListBoxItem>
+              <StackPanel Margin="5" Orientation="Horizontal">
+                <RadioButton></RadioButton>
+                <Image  Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg" />
+                <StackPanel Margin="5" Orientation="Vertical">
+                  <TextBlock FontWeight="Bold" TextWrapping="Wrap" FontSize="18">Game of Thrones</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Season 4</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Episode 7</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Episode name</TextBlock>
+                  <TextBlock TextWrapping="Wrap">23.12.2019</TextBlock>
+                </StackPanel>
+                <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="280">
+                  <LineBreak> </LineBreak>
+                  When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
+                </TextBlock>
+              </StackPanel>
+            </ListBoxItem>
+          </ListBox>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Watched" FontSize="14">
+        <ScrollViewer VerticalScrollBarVisibility="Visible">
+          <ListBox>
+            <ListBoxItem>
+              <StackPanel Margin="5" Orientation="Horizontal">
+                <RadioButton></RadioButton>
+                <Image  Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg" />
+                <StackPanel Margin="5" Orientation="Vertical">
+                  <TextBlock FontWeight="Bold" TextWrapping="Wrap" FontSize="18" >Game of Thrones</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Season 4</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Episode 7</TextBlock>
+                  <TextBlock TextWrapping="Wrap">Episode name</TextBlock>
+                  <TextBlock TextWrapping="Wrap">23.12.2019</TextBlock>
+                </StackPanel>
+                <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="280">
+                  <LineBreak> </LineBreak>
+                  When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
+                </TextBlock>
+              </StackPanel>
+            </ListBoxItem>
+          </ListBox>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="My Shows" FontSize="14">
+        <StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Button FontSize="14" Margin="5">Add</Button>
+            <Button FontSize="14" Margin="5">Delete</Button>
+          </StackPanel>
+          <ScrollViewer VerticalScrollBarVisibility="Visible">
+            <ListBox>
+              <ListBoxItem>
+                <StackPanel Margin="5" Orientation="Horizontal">
+                  <Image Height="130" Source="{Binding Path=Image.Medium}"/>
+                  <StackPanel Margin="5" Orientation="Vertical">
+                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" FontSize="18" TextWrapping="Wrap">Game of Thrones</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">8 seasons</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14" Text="{Binding Path=Status}"></TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Genres</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Runtime</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Premiered</TextBlock>
+                  </StackPanel>
+                  <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="300">
+                    <LineBreak> </LineBreak>
+                    When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
+                  </TextBlock>
+                </StackPanel>
+              </ListBoxItem>
+            </ListBox>
+          </ScrollViewer>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+  </Grid>
 </Window>
