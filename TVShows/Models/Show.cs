@@ -23,10 +23,10 @@ namespace TVShows.Models
         public List<string> Genres { get; set; }
 
         [JsonProperty("runtime")]
-        public double Runtime { get; set; }
+        public double? Runtime { get; set; }
 
         [JsonProperty("premiered")]
-        public DateTime PremieredDt { get; set; }
+        public DateTime? PremieredDt { get; set; }
 
         public List<Episode> Episodes { get; set; }
 

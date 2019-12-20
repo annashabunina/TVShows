@@ -26,6 +26,12 @@ namespace TVShows
             }
         }
 
+       
+        public List<Show> GetCurrentShows()
+        {
+            return Shows;
+        }
+
         List<Show> Shows { get; set; }
         List<int> ShowsId { get; set; }
         List<int> WhatchedEpisodesId { get; set; }
@@ -36,9 +42,14 @@ namespace TVShows
 
         public List<Episode> GetEpisodes(bool watched)
         {
+            List<Episode> epis = new List<Episode>();
             List<Episode> episodes = new List<Episode>();
             foreach (Show show in Shows)
-                episodes.AddRange(show.Episodes.FindAll(e => e.Watched == watched));
+            { 
+                epis = show.Episodes.FindAll(e => e.Watched == watched);
+                epis.ForEach(e => e.ShowName = show.Name);
+                episodes.AddRange(epis);
+            }
             return episodes;
         }
 

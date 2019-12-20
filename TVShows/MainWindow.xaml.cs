@@ -26,6 +26,8 @@ namespace TVShows
         {
             InitializeComponent();
             personalArea = new PersonalArea();
+            Update();
+            personalArea.ChangedShow += Update;
             //var s = PersonalArea.GetTVShow("girls");
             ////var ss = PersonalArea.GetTVShows("game of thrones");
             //PersonalArea p = new PersonalArea();
@@ -38,6 +40,20 @@ namespace TVShows
             ////p.SaveData();
             //p.LoadData();
             //var s=p.Shows;
+        }
+
+        private void Update()
+        {
+            ShowsListBox.Items.Clear();
+            var shows = personalArea.GetCurrentShows();
+            foreach (Show show in shows)
+                ShowsListBox.Items.Add(show);
+            var WatchedEpisodes = personalArea.GetEpisodes(true);
+            foreach(Episode e in WatchedEpisodes)
+            WatchedListBox.Items.Add(e);
+            var NotWatcedEpisodes = personalArea.GetEpisodes(false);
+            foreach (Episode e in NotWatcedEpisodes)
+                ToWatchListBox.Items.Add(e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

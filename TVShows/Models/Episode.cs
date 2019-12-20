@@ -8,6 +8,7 @@ namespace TVShows.Models
    public class Episode
     {
         public bool Watched { get; set; }
+        public string ShowName { get; set; }
 
         [JsonProperty("id")]
         public int Id { get; set; }

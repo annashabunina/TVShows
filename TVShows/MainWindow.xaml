@@ -5,84 +5,125 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TVShows"
         mc:Ignorable="d"
-Title="Menu" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+Title="Menu" Height="600" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
   <Grid Margin="10">
-    <TabControl TabStripPlacement="Left">
-      <TabItem Header="To Watch" FontSize="14">
         <ScrollViewer VerticalScrollBarVisibility="Visible">
-          <ListBox>
-            <ListBoxItem>
-              <StackPanel Margin="5" Orientation="Horizontal">
-                <RadioButton></RadioButton>
-                <Image  Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg" />
-                <StackPanel Margin="5" Orientation="Vertical">
-                  <TextBlock FontWeight="Bold" TextWrapping="Wrap" FontSize="18">Game of Thrones</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Season 4</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Episode 7</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Episode name</TextBlock>
-                  <TextBlock TextWrapping="Wrap">23.12.2019</TextBlock>
-                </StackPanel>
-                <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="280">
-                  <LineBreak> </LineBreak>
-                  When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
-                </TextBlock>
-              </StackPanel>
-            </ListBoxItem>
-          </ListBox>
+
+            <TabControl TabStripPlacement="Left">
+                <TabItem Header="To Watch" FontSize="14">
+                    <ListBox Name="ToWatchListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <Image Height="150" Source="{Binding Path=Image.Medium}"/>
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"></ColumnDefinition>
+                                            <ColumnDefinition Width="400"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock FontWeight="Bold"  Grid.ColumnSpan="2" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=ShowName}"></TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="1" Text="{Binding Path=Season}"> Season</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="2" Text="{Binding Path=Number}"> Episode</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="3" Text="{Binding Path=Name}"></TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="4" Text="{Binding Path=AirDate}"> Season</TextBlock>
+                                        <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="300" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Text="{Binding Path=Summary}"></TextBlock>
+                                    </Grid>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="Watched" FontSize="14">
+                        <ListBox Name="WatchedListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <Image Height="150" Source="{Binding Path=Image.Medium}"/>
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"></ColumnDefinition>
+                                            <ColumnDefinition Width="400"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock FontWeight="Bold"  Grid.ColumnSpan="2" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=ShowName}"></TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="1" Text="{Binding Path=Season}"> Season</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="2" Text="{Binding Path=Number}"> Episode</TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="3" Text="{Binding Path=Name}"></TextBlock>
+                                        <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="4" Text="{Binding Path=AirDate}"> Season</TextBlock>
+                                        <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="300" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Text="{Binding Path=Summary}"></TextBlock>
+                                    </Grid>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </TabItem>
+                <TabItem Header="My Shows" FontSize="14">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button FontSize="14" Margin="5" Click="Button_Click">Add</Button>
+                            <Button FontSize="14" Margin="5">Delete</Button>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                            <ListBox Name="ShowsListBox">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="5" Orientation="Horizontal">
+                                            <Image Height="150" Source="{Binding Path=Image.Medium}"/>
+                                            <Grid Margin="10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="70"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="400"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock FontWeight="Bold"  Grid.ColumnSpan="3" FontSize="18" TextWrapping="Wrap" Text="{Binding Path=Name}"></TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="1">Status</TextBlock>
+                                                <!--<TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="2">Seasons</TextBlock>-->
+
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="4">Runtime</TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="5">Premiered</TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Status}"></TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Genres}"></TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Runtime}"></TextBlock>
+                                                <TextBlock TextWrapping="Wrap" FontSize="14" Grid.Row="5" Grid.Column="1" Text="{Binding Path=PremieredDt}"></TextBlock>
+                                                <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="300" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Text="{Binding Path=Summary}"></TextBlock>
+                                            </Grid>
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
         </ScrollViewer>
-      </TabItem>
-      <TabItem Header="Watched" FontSize="14">
-        <ScrollViewer VerticalScrollBarVisibility="Visible">
-          <ListBox>
-            <ListBoxItem>
-              <StackPanel Margin="5" Orientation="Horizontal">
-                <RadioButton></RadioButton>
-                <Image  Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg" />
-                <StackPanel Margin="5" Orientation="Vertical">
-                  <TextBlock FontWeight="Bold" TextWrapping="Wrap" FontSize="18" >Game of Thrones</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Season 4</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Episode 7</TextBlock>
-                  <TextBlock TextWrapping="Wrap">Episode name</TextBlock>
-                  <TextBlock TextWrapping="Wrap">23.12.2019</TextBlock>
-                </StackPanel>
-                <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="280">
-                  <LineBreak> </LineBreak>
-                  When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
-                </TextBlock>
-              </StackPanel>
-            </ListBoxItem>
-          </ListBox>
-        </ScrollViewer>
-      </TabItem>
-      <TabItem Header="My Shows" FontSize="14">
-        <StackPanel>
-          <StackPanel Orientation="Horizontal">
-            <Button FontSize="14" Margin="5" Click="Button_Click">Add</Button>
-            <Button FontSize="14" Margin="5">Delete</Button>
-          </StackPanel>
-          <ScrollViewer VerticalScrollBarVisibility="Visible">
-            <ListBox>
-              <ListBoxItem>
-                <StackPanel Margin="5" Orientation="Horizontal">
-                  <Image Height="130" Source="{Binding Path=Image.Medium}"/>
-                  <StackPanel Margin="5" Orientation="Vertical">
-                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" FontSize="18" TextWrapping="Wrap">Game of Thrones</TextBlock>
-                    <TextBlock TextWrapping="Wrap" FontSize="14">8 seasons</TextBlock>
-                    <TextBlock TextWrapping="Wrap" FontSize="14" Text="{Binding Path=Status}"></TextBlock>
-                    <TextBlock TextWrapping="Wrap" FontSize="14">Genres</TextBlock>
-                    <TextBlock TextWrapping="Wrap" FontSize="14">Runtime</TextBlock>
-                    <TextBlock TextWrapping="Wrap" FontSize="14">Premiered</TextBlock>
-                  </StackPanel>
-                  <TextBlock FontSize="14" Margin="10" TextWrapping="Wrap" Width="300">
-                    <LineBreak> </LineBreak>
-                    When the residents of Chester's Mill find themselves trapped under a massive transparent dome with no way out, they struggle to survive as resources rapidly dwindle and panic quickly escalates.
-                  </TextBlock>
-                </StackPanel>
-              </ListBoxItem>
-            </ListBox>
-          </ScrollViewer>
-        </StackPanel>
-      </TabItem>
-    </TabControl>
-  </Grid>
+    </Grid>
 </Window>
