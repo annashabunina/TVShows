@@ -19,9 +19,6 @@ namespace TVShows.Models
         [JsonProperty("language")]
         public string Language { get; set; }
 
-        [JsonProperty("genres")]
-        public List<string> Genres { get; set; }
-
         [JsonProperty("runtime")]
         public double? Runtime { get; set; }
 
@@ -33,9 +30,19 @@ namespace TVShows.Models
         [JsonProperty("image")]
         public Image Image { get; set; }
 
+        private string summary;
         [JsonProperty("summary")]
-        public string Summary { get; set; }
+        public string Summary
+        {
+            get { return summary; }
+            set { string str = value?.TrimStart('<','p','>')??"";
+                str = str.TrimEnd('<', '/', 'p', '>');
+                summary = str;
+            }
+        }
 
-       
+
+
+
     }
 }

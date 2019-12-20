@@ -35,8 +35,6 @@ namespace TVShows
         List<Show> Shows { get; set; }
         List<int> ShowsId { get; set; }
         List<int> WhatchedEpisodesId { get; set; }
-
-        public Action ChangedEpisodeState;
         public Action ChangedShow;
 
 
@@ -55,11 +53,16 @@ namespace TVShows
 
         public void ChangeEpisodeState(int id, bool watched)
         {
-            Episode episode=null;
-            foreach (Show show in Shows)
-                episode = show.Episodes.FirstOrDefault(e => e.Id == id);
-            episode.Watched = watched;
-            ChangedEpisodeState?.Invoke();
+            Episode ep;
+            foreach(Show show in Shows)
+            {
+                ep = show.Episodes.FirstOrDefault(e=>e.Id==id);
+                if(ep!=null)ep.Watched = watched;
+            }
+            if (watched) WhatchedEpisodesId.Add(id);
+            else WhatchedEpisodesId.Remove(id);
+            ChangedShow?.Invoke();
+            SaveData();
         }
         //public List<Episode> MyProperty { get; set; }
 

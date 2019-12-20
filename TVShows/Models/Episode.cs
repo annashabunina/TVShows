@@ -21,14 +21,24 @@ namespace TVShows.Models
         [JsonProperty("number")]
         public int Number { get; set; }
 
-        [JsonProperty("airdate")]
+        [JsonProperty("airstamp")]
         public DateTime AirdateDt { get; set; }
 
         [JsonProperty("runtime")]
         public Double Runtime { get; set; }
 
+        private string summary;
         [JsonProperty("summary")]
-        public string Summary { get; set; }
+        public string Summary
+        {
+            get { return summary; }
+            set
+            {
+                string str = value?.TrimStart('<', 'p', '>')??"";
+                str = str.TrimEnd('<', '/', 'p', '>');
+                summary = str;
+            }
+        }
 
         [JsonProperty("image")]
         public Image Image { get; set; }

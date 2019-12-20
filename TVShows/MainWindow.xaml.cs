@@ -28,23 +28,15 @@ namespace TVShows
             personalArea = new PersonalArea();
             Update();
             personalArea.ChangedShow += Update;
-            //var s = PersonalArea.GetTVShow("girls");
-            ////var ss = PersonalArea.GetTVShows("game of thrones");
-            //PersonalArea p = new PersonalArea();
-            ////p.Shows = new List<Show>();
-            ////p.Shows.Add(s);
-            ////p.ShowsId = new List<int>();
-            ////p.ShowsId.Add(s.Id);
-            ////p.SeenEpisodesId = new List<int>();
-            ////p.SeenEpisodesId.Add(s.Episodes[3].Id);
-            ////p.SaveData();
-            //p.LoadData();
-            //var s=p.Shows;
+            //personalArea.ChangedEpisodeState += UpdateEpisodes;
+
         }
 
         private void Update()
         {
             ShowsListBox.Items.Clear();
+            ToWatchListBox.Items.Clear();
+            WatchedListBox.Items.Clear();
             var shows = personalArea.GetCurrentShows();
             foreach (Show show in shows)
                 ShowsListBox.Items.Add(show);
@@ -56,10 +48,51 @@ namespace TVShows
                 ToWatchListBox.Items.Add(e);
         }
 
+        //private void UpdateEpisodes(int id, bool watched)
+        //{
+        //    Episode episode;
+        //    List<Episode> episodes;
+        //    if (watched)
+        //         episodes = (List<Episode>)ToWatchListBox.I;
+        //}
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Search searchWindow = new Search(personalArea);
             searchWindow.ShowDialog();
+        }
+
+        private void TowatchButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+
+                Episode episode = (Episode)WatchedListBox.SelectedItem;
+                personalArea.ChangeEpisodeState(episode.Id, false);
+            }
+            catch { }
+        }
+
+        private void WatchedButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+
+                Episode episode = (Episode)ToWatchListBox.SelectedItem;
+                personalArea.ChangeEpisodeState(episode.Id, true);
+            }
+            catch { }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                personalArea.DeleteShow(((Show)ShowsListBox.SelectedItem).Id);
+            }
+            catch { }
         }
     }
 }
