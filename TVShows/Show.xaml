@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TVShows"
         mc:Ignorable="d"
-        Title="Show" Height="450" Width="800">
+        Title="Show" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
-        
+        <StackPanel>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Image Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg"/>
+                <StackPanel Margin="5" Orientation="Vertical">
+                    <TextBlock FontWeight="Bold" FontSize="18" TextWrapping="Wrap">Game of Thrones</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">8 seasons</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Status</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Genres</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Runtime</TextBlock>
+                    <TextBlock TextWrapping="Wrap" FontSize="14">Premiered</TextBlock>
+                </StackPanel>
+                <TextBlock FontSize="14" Margin="10">
+                    <LineBreak> </LineBreak>
+                    Summary
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Margin="3" FontSize="16">Search</Button>
+                <Button Margin="3" FontSize="16">Add</Button>
+                <Button Margin="3" FontSize="16">Cancel</Button>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ListBox>
+                    <ListBoxItem>
+                        <StackPanel Margin="5" Orientation="Horizontal">
+                            <RadioButton></RadioButton>
+                            <Image  Height="130" Source="http://static.tvmaze.com/uploads/images/medium_landscape/1/4388.jpg" />
+                            <StackPanel Margin="5" Orientation="Vertical">
+                                <TextBlock TextWrapping="Wrap">Season 4</TextBlock>
+                                <TextBlock TextWrapping="Wrap">Episode 7</TextBlock>
+                                <TextBlock TextWrapping="Wrap">Episode name</TextBlock>
+                                <TextBlock TextWrapping="Wrap">23.12.2019</TextBlock>
+                            </StackPanel>
+                            <TextBlock FontSize="12" Margin="5">
+                    Summary
+                            </TextBlock>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Window>
