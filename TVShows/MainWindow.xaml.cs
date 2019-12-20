@@ -25,7 +25,7 @@ namespace TVShows
         {
             InitializeComponent();
 
-            ////PersonalArea personalArea = new PersonalArea();
+            PersonalArea personalArea = new PersonalArea();
             ////var s = PersonalArea.GetTVShow("girls");
             ////var ss = PersonalArea.GetTVShows("game of thrones");
             //PersonalArea p = new PersonalArea();
