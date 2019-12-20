@@ -28,7 +28,6 @@ namespace TVShows
             personalArea = new PersonalArea();
             Update();
             personalArea.ChangedShow += Update;
-            //personalArea.ChangedEpisodeState += UpdateEpisodes;
 
         }
 
@@ -41,20 +40,13 @@ namespace TVShows
             foreach (Show show in shows)
                 ShowsListBox.Items.Add(show);
             var WatchedEpisodes = personalArea.GetEpisodes(true);
-            foreach(Episode e in WatchedEpisodes)
+            foreach (Episode e in WatchedEpisodes)
             WatchedListBox.Items.Add(e);
             var NotWatcedEpisodes = personalArea.GetEpisodes(false);
             foreach (Episode e in NotWatcedEpisodes)
                 ToWatchListBox.Items.Add(e);
         }
 
-        //private void UpdateEpisodes(int id, bool watched)
-        //{
-        //    Episode episode;
-        //    List<Episode> episodes;
-        //    if (watched)
-        //         episodes = (List<Episode>)ToWatchListBox.I;
-        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -66,8 +58,6 @@ namespace TVShows
         {
             try
             {
-
-
                 Episode episode = (Episode)WatchedListBox.SelectedItem;
                 personalArea.ChangeEpisodeState(episode.Id, false);
             }
@@ -79,8 +69,9 @@ namespace TVShows
             try
             {
 
-
                 Episode episode = (Episode)ToWatchListBox.SelectedItem;
+                if (episode.AirdateDt > DateTime.Now) MessageBox.Show("Episode is not realeased");
+                else
                 personalArea.ChangeEpisodeState(episode.Id, true);
             }
             catch { }
@@ -93,6 +84,12 @@ namespace TVShows
                 personalArea.DeleteShow(((Show)ShowsListBox.SelectedItem).Id);
             }
             catch { }
+        }
+
+        private void ShowsListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ShowWindow showWindow = new ShowWindow(personalArea, (Show)ShowsListBox.SelectedItem);
+            showWindow.ShowDialog();
         }
     }
 }

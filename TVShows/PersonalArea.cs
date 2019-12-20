@@ -64,22 +64,12 @@ namespace TVShows
             ChangedShow?.Invoke();
             SaveData();
         }
-        //public List<Episode> MyProperty { get; set; }
-
-
-        //public Show GetTVShow(string name)
-        //{
-        //    //return GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
-        //    Show s= GetQueryResult<Show>($"http://api.tvmaze.com/singlesearch/shows?q={name}");
-        //    s.Episodes = GetQueryResult<List<Episode>>($"http://api.tvmaze.com/shows/{s.Id}/episodes");
-        //    return s;
-        //}
 
         private T GetQueryResult<T>(string query)
         {
             using (var client = new HttpClient())
             {
-                string result = client.GetStringAsync(query).Result;  // Blocking call!
+                string result = client.GetStringAsync(query).Result;  
                 return JsonConvert.DeserializeObject<T>(result);
             }
         }

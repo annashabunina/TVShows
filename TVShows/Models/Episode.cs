@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TVShows.Models
 {
-   public class Episode
+   public class Episode:IComparable
     {
         public bool Watched { get; set; }
         public string ShowName { get; set; }
@@ -42,6 +42,11 @@ namespace TVShows.Models
 
         [JsonProperty("image")]
         public Image Image { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            return AirdateDt.CompareTo(obj);
+        }
     }
 
   public  class Image
