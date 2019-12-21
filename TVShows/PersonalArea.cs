@@ -76,7 +76,15 @@ namespace TVShows
 
         public  List<SearchRating> SearchTVShows(string name)
         {
+            try
+            {
                 return GetQueryResult<List<SearchRating>>($"http://api.tvmaze.com/search/shows?q={name}");
+
+            }
+            catch
+            {
+                return new List<SearchRating>();
+            }
         }
 
         public bool AddShow(int id)

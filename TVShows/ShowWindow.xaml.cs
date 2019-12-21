@@ -32,6 +32,7 @@ namespace TVShows
         private void Update()
         {
             EpisodesListBox.Items.Clear();
+            if (show?.Episodes != null)
             foreach (Episode e in show.Episodes)
                 EpisodesListBox.Items.Add(e);
         }
